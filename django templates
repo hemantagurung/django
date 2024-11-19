@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block content %}
+<div class="table-responsive">
+  <table class="table table-primary table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Book Name</th>
+        <th scope="col">Publication</th>
+        <th scope="col">Price</th>
+        <th scope="col">Published Date</th>
+        <th scope="col">Slug</th>
+        <th scope="col">Author Written</th>
+        <th scope="col">Author Edited</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if user.is_authenticated %} {% for book in books %}
+      <tr>
+        <td scope="row">{{ book.name|title }}</td>
+
+        <td>{{ book.publication|title }}</td>
+
+        <td>${{ book.price|floatformat:2 }}</td>
+
+        <td>{{ book.published_date|date:"Y-M-d" }}</td>
+
+        <td>{{ book.slug }}</td>
+
+        <td>{{ book.author_written.name|title}}</td>
+
+        <td>{{ book.author_edited.name|title}}</td>
+      </tr>
+      {% endfor %} {% else %}
+      <tr>
+        <td colspan="7" class="text-center">Please login to view the books.</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}
